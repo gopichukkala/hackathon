@@ -1,0 +1,4 @@
+flask
+flask-cors
+chatterbot
+deep-translator
