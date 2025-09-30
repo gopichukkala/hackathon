@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri-Advisor Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='farming.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div class="container">
+        <a href="#" class="logo" data-page="home">🌱 Agri-Advisor Pro</a>
+        <nav>
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="home" data-lang-key="Home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="crop-recommendation" data-lang-key="Crop Recommendation">Crop Recommendation</a></li>
+                <li><a href="#" class="nav-link" data-page="disease-detection" data-lang-key="Disease Detection">Disease Detection</a></li>
+                <li><a href="#" class="nav-link" data-page="market-prices" data-lang-key="Market Prices">Market Prices</a></li>
+                <li><a href="#" class="nav-link" data-page="chat-assistant" data-lang-key="Chat Assistant">Chat Assistant</a></li>
+                <li><a href="#" class="nav-link" data-page="login" data-lang-key="Login">Login</a></li>
+                <li><a href="#" class="nav-link" data-page="signup" data-lang-key="Signup">Signup</a></li>
+                <li><a href="#" class="nav-link" data-page="language" data-lang-key="Language Translator">Language Translator</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- ✅ Home -->
+    <section id="home" class="page active">
+        <div class="hero-section">
+            <h1 data-lang-key="homeTitle">AI-Powered Agricultural Platform</h1>
+            <p data-lang-key="homeSubtitle">Empowering farmers with smart technology for better crop management</p>
+        </div>
+
+        <div class="home-content container">
+            <div class="info-section">
+                <h2 data-lang-key="aboutProjectTitle">About the Project</h2>
+                <p data-lang-key="aboutProjectPara1">
+                    Agri-Advisor Pro is a cutting-edge agricultural platform designed to empower farmers with smart tools. 
+                    Using AI-driven insights, our system recommends optimal crops, detects plant diseases, and provides market price trends. 
+                    The goal is to make farming more productive and sustainable.
+                </p>
+                <p data-lang-key="aboutProjectPara2">
+                    Our project integrates modern technologies such as machine learning, OCR for soil reports, and multilingual support to 
+                    cater to farmers across regions. With user-friendly features, Agri-Advisor Pro is transforming traditional agriculture 
+                    into a data-driven industry.
+                </p>
+                <p data-lang-key="aboutProjectPara3">
+                    This platform not only helps in decision-making but also improves yield quality, reduces waste, and enhances profitability 
+                    for farmers. Our vision is to make advanced agricultural tools accessible to every farmer, regardless of location or scale.
+                </p>
+            </div>
+
+            <div class="images-carousel">
+    <div class="carousel-track">
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/farming1.jpg') }}" alt="Farming Technology">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/farming2.jpg') }}" alt="Crop Recommendation">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/farming3.jpg') }}" alt="AI in Agriculture">
+        </div>
+    </div>
+    <button class="carousel-btn prev-btn">‹</button>
+    <button class="carousel-btn next-btn">›</button>
+</div>
+
+
+    <!-- ✅ Crop Recommendation -->
+    <section id="crop-recommendation" class="page">
+        <div class="page-header">
+            <h2 data-lang-key="cropRecTitle">Smart Crop Recommendations</h2>
+        </div>
+        <div class="page-content two-column container">
+            <div class="form-container card">
+                <form id="crop-form">
+                    <label data-lang-key="formSoil">Soil Type</label>
+                    <select name="soil" required>
+                        <option value="">Select</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="clay">Clay</option>
+                        <option value="loamy">Loamy</option>
+                    </select>
+                    <label data-lang-key="formSeason">Season</label>
+                    <select name="season" required>
+                        <option value="">Select</option>
+                        <option value="summer">Summer</option>
+                        <option value="winter">Winter</option>
+                        <option value="rainy">Rainy</option>
+                    </select>
+                    <label data-lang-key="formWater">Water Availability</label>
+                    <select name="water" required>
+                        <option value="">Select</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <label data-lang-key="formLocation">Location</label>
+                    <input type="text" name="location" required>
+                    <button type="submit" data-lang-key="btnGetRecs">Get Recommendations</button>
+                </form>
+            </div>
+
+            <div class="upload-container card">
+                <h3 data-lang-key="formUpload">Upload Soil Report</h3>
+                <input type="file" id="soil-file" accept="image/png, image/jpeg">
+                <button id="upload-btn" data-lang-key="btnUpload">Upload</button>
+            </div>
+
+            <div id="crop-recommendation-dashboard" class="results-container card">
+                <h3 data-lang-key="Soil Report">Soil Report</h3>
+                <div class="report-section">
+                    <h4 data-lang-key="Report Type">Report Type:</h4>
+                    <p data-lang-key="default">default</p>
+                </div>
+                <div class="soil-values-section">
+                    <h4 data-lang-key="Soil Parameters">Soil Parameters</h4>
+                    <table id="soil-values-table"></table>
+                </div>
+                <div class="recommendations-section">
+                    <h4 data-lang-key="Recommendations">Recommendations</h4>
+                    <ul id="recommendations-list"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ Disease Detection -->
+ <section id="disease-detection" class="page">
+    <div class="page-header">
+        <h2 data-lang-key="Disease Detection">Disease Detection</h2>
+    </div>
+    <div class="disease-detection-container container">
+        <div class="disease-card">
+            <h3 data-lang-key="Upload Leaf Image">Upload Leaf Image</h3>
+            <input type="file" id="leaf-file" accept="image/*">
+            <button id="detect-disease-btn" data-lang-key="Detect Disease">Detect Disease</button>
+            <div class="results-container"></div> <!-- Added this -->
+        </div>
+    </div>
+</section>
+
+
+    <!-- ✅ Market Prices -->
+<section id="market-prices" class="page">
+    <div class="page-header">
+        <h2 data-lang-key="Market Prices">Market Prices</h2>
+    </div>
+
+    <div id="prices-container" class="container" style="display: none;">
+        <!-- Table will be generated here -->
+    </div>
+
+    <button id="fetch-prices-btn" data-lang-key="Fetch Prices">Fetch Prices</button>
+</section>
+
+
+
+    <!-- ✅ Chat Assistant -->
+    <section id="chat-assistant" class="page">
+        <div class="page-header">
+            <h2 data-lang-key="Chat Assistant">Chat Assistant</h2>
+        </div>
+        <div class="chat-container container">
+            <div id="chat-box"></div>
+            <div class="chat-footer">
+                <input type="text" id="chat-input" placeholder="Type your question..." data-lang-key="chatPlaceholder">
+                <button id="chat-send-btn" data-lang-key="Send">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ Login -->
+    <div id="login" class="page">
+        <h2 data-lang-key="Login">Login</h2>
+        <input id="login-username" type="text" placeholder="Username" data-lang-key="usernamePlaceholder">
+        <input id="login-password" type="password" placeholder="Password" data-lang-key="passwordPlaceholder">
+        <button id="login-btn" data-lang-key="Login">Login</button>
+        <div id="login-result"></div>
+    </div>
+
+    <!-- ✅ Signup -->
+    <div id="signup" class="page">
+        <h2 data-lang-key="Signup">Sign Up</h2>
+        <input id="signup-username" type="text" placeholder="Username" data-lang-key="usernamePlaceholder">
+        <input id="signup-password" type="password" placeholder="Password" data-lang-key="passwordPlaceholder">
+        <button id="signup-btn" data-lang-key="Signup">Sign Up</button>
+        <div id="signup-result"></div>
+    </div>
+
+    <!-- ✅ Language Translator -->
+    <section id="language" class="page">
+        <h2 data-lang-key="Language Translator">Language Translator</h2>
+        <select id="language-select">
+            <option value="english" data-lang-key="English">English</option>
+            <option value="hindi" data-lang-key="Hindi">Hindi</option>
+            <option value="telugu" data-lang-key="Telugu">Telugu</option>
+            <option value="tamil" data-lang-key="Tamil">Tamil</option>
+            <option value="kannada" data-lang-key="Kannada">Kannada</option>
+        </select>
+        <button id="translate-btn" data-lang-key="Translate Page">Translate Page</button>
+    </section>
+</main>
+
+<script src="{{ url_for('static', filename='farmin.js') }}"></script>
+</body>
+</html>
