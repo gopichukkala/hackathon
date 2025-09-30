@@ -1,1 +1,0 @@
-setx OPENAI_API_KEY "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"
