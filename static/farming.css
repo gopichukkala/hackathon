@@ -257,3 +257,33 @@ tr:hover {
 
 .prev-btn { left: 10px; }
 .next-btn { right: 10px; }
+.page {
+    display: none; /* Hide all pages by default */
+}
+
+.page.active {
+    display: block; /* Show only the active page */
+}
+
+/* Optional — make nav-link active look nicer */
+.nav-link.active {
+    background-color: #2a9d8f;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link { 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #264653;
+    color: white;
+}
+.hidden {
+    display: none;
+}
+
