@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const BASE_URL = "http://127.0.0.1:5000"; // <-- Flask backend URL
+
     const tabButtons = document.querySelectorAll('.nav-link');
     const pages = document.querySelectorAll('.page');
     const setLoading = (selector, msg = "Loading...") => {
@@ -11,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tabButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             const pageId = btn.getAttribute('data-page');
+
             pages.forEach(page => {
                 page.classList.remove('active');
                 if (page.id === pageId) page.classList.add('active');
@@ -19,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pageId === "market-prices") loadMarketPrices();
         });
     });
+
+    // 🔹 NEW: Trigger the first active tab on page load
+    const initialActiveTab = document.querySelector('.nav-link.active');
+    if (initialActiveTab) initialActiveTab.click();
 
     // ======= LANGUAGE TRANSLATION =======
     document.getElementById("translate-btn")?.addEventListener("click", async () => {
@@ -29,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await Promise.all([...allTextElements].map(async el => {
                 const text = el.textContent.trim();
                 if (!text) return;
-                const response = await fetch("/translate", {
+                const response = await fetch(`${BASE_URL}/translate`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ text, lang })
@@ -48,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById("login-username").value;
         const password = document.getElementById("login-password").value;
         try {
-            const res = await fetch("/login", {
+            const res = await fetch(`${BASE_URL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
@@ -65,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById("signup-username").value;
         const password = document.getElementById("signup-password").value;
         try {
-            const res = await fetch("/signup", {
+            const res = await fetch(`${BASE_URL}/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
@@ -88,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setLoading("#crop-recommendation .results-container");
 
         try {
-            const response = await fetch("/upload_soil_report", { method: "POST", body: formData });
+            const response = await fetch(`${BASE_URL}/upload_soil_report`, { method: "POST", body: formData });
             const data = await response.json();
 
             let soilValuesHtml = "";
@@ -133,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setLoading("#crop-recommendation .results-container");
 
         try {
-            const response = await fetch("/recommend_crop", {
+            const response = await fetch(`${BASE_URL}/recommend_crop`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ soil, season, water, location })
@@ -156,11 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append("leaf_image", file);
 
         const resultContainer = document.querySelector("#disease-detection .results-container");
-
         resultContainer.innerHTML = "<p>Loading...</p>";
 
         try {
-            const response = await fetch("/detect_disease", { method: "POST", body: formData });
+            const response = await fetch(`${BASE_URL}/detect_disease`, { method: "POST", body: formData });
             const data = await response.json();
             resultContainer.innerHTML = `
                 <h3 data-lang-key="Disease Result">Disease Result</h3>
@@ -178,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = "<p>Loading...</p>";
 
         try {
-            const response = await fetch("/market_prices");
+            const response = await fetch(`${BASE_URL}/market_prices`);
             let data = await response.json();
 
             if (!data || Object.keys(data).length === 0) {
@@ -216,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('chat-input').value = "";
 
         try {
-            const response = await fetch("/chat_assistant", {
+            const response = await fetch(`${BASE_URL}/chat_assistant`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: msg })
