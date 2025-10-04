@@ -1,4 +1,4 @@
-﻿absl-py==2.3.1
+absl-py==2.3.1
 annotated-types==0.7.0
 anyio==4.11.0
 astunparse==1.6.3
@@ -9,7 +9,6 @@ catalogue==2.0.10
 certifi==2025.8.3
 chardet==3.0.4
 charset-normalizer==3.4.3
-git+https://github.com/gunthercox/ChatterBot.git
 click==8.3.0
 cloudpathlib==0.22.0
 colorama==0.4.6
@@ -46,7 +45,6 @@ marisa-trie==1.3.1
 Markdown==3.9
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
-mathparse==0.2.1
 mdurl==0.1.2
 ml_dtypes==0.5.3
 murmurhash==1.0.13
@@ -99,7 +97,3 @@ wasabi==1.1.3
 weasel==0.4.1
 Werkzeug==3.1.3
 wrapt==1.17.3
-
-
-
-
